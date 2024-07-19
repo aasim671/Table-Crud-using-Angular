@@ -1,0 +1,31 @@
+/* Set background color and text color for the entire dialog */
+div {
+  background-color: white;
+  color: black;
+  padding: 10px;
+}
+
+/* Ensure input text color is black */
+input {
+  color: black !important;
+}
+
+/* Ensure mat-label and mat-placeholder colors are black */
+.mat-form-field-label, .mat-form-field-placeholder {
+  color: black !important;
+}
+
+/* Ensure the floating label color is black when input is focused */
+.mat-focused .mat-form-field-label {
+  color: black !important;
+}
+
+/* Ensure mat-label when the field is filled */
+.mat-form-field.mat-form-field-should-float .mat-form-field-label {
+  color: black !important;
+}
+
+/* Set button text color to black */
+button.mat-raised-button {
+  color: black;
+}

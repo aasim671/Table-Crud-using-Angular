@@ -1,0 +1,23 @@
+.btn {
+  float: right;
+  margin-bottom: 10px;
+}
+
+
+table{
+  background-color: white;
+}
+
+
+td{
+  color:black;
+}
+
+
+th{color: black;}
+
+div h1{
+  display: flex;
+  justify-content: center;
+}
+
