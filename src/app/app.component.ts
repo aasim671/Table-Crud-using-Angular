@@ -8,7 +8,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DialogComponent, PeriodicElement } from './components/dialog/dialog.component';
 import { DelteteComponen } from './components/delete/delete.component';
-import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -24,16 +24,16 @@ import { MatInputModule } from '@angular/material/input';
     MatSortModule,
     DialogComponent,
     DelteteComponen,
-    MatLabel,MatFormFieldModule,
+    MatLabel,
+    MatFormFieldModule,
     MatInputModule
-
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
   title = 'Employee Table';
-  displayedColumns: string[] = [ 'name', 'email', 'actions'];
+  displayedColumns: string[] = ['name', 'email', 'actions'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -43,7 +43,16 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.dataSource.sortingDataAccessor = (item: PeriodicElement, property: string) => {
+      switch (property) {
+        case 'name': return item.firstName + ' ' + item.lastName;
+        case 'email': return item.email;
+        default: return ''; // Handle other cases or return an empty string
+      }
+    };
   }
+
 
   opendialog() {
     const dialogRef = this.dialog.open(DialogComponent);
@@ -67,6 +76,7 @@ export class AppComponent implements AfterViewInit {
       }
     });
   }
+
   edit(element: PeriodicElement) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { ...element }
@@ -87,7 +97,6 @@ export class AppComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -112,4 +121,3 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { id: 19, firstName: 'Potassium', lastName: '', email: 'potassium@example.com' },
   { id: 20, firstName: 'Calcium', lastName: '', email: 'calcium@example.com' },
 ];
-
